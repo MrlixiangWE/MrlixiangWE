@@ -25,9 +25,4 @@
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/main/cards/languages.svg" alt="Languages" height="270">
-  <img src="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/main/cards/activity.svg" alt="Activity" height="270">
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/main/cards/streak.svg" alt="Streak" height="130">
 </p>

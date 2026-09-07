@@ -22,12 +22,6 @@ LANG_COLORS = {
     "Makefile": "#427819", "Triton": "#6f42c1",
 }
 
-# GitHub reports private work only as restrictedContributionsCount: an aggregate
-# with no repository and no language attached, and it will not disclose more.
-# This is therefore a declared split, not a measured one - state how private
-# commits divide by language and they are apportioned accordingly.
-PRIVATE_LANGUAGES = {"Python": 1.0}
-
 
 def fetch(url, data=None):
     headers = {"User-Agent": USER, "Accept": "application/vnd.github+json"}
@@ -44,7 +38,10 @@ def commits_by_language():
 
     commitContributionsByRepository covers public repositories only. Dropping
     the private remainder left this card summing to 59 beside an activity card
-    reading 808, so it is folded in via PRIVATE_LANGUAGES above.
+    reading 808, so it is folded back in: GitHub gives the private work as a
+    bare count with no language attached, and the least invented thing to do
+    with it is to spread it over the languages already measured, in the same
+    proportion. Private work then scales the breakdown instead of reshaping it.
     """
     query = """query($login:String!){ user(login:$login){ contributionsCollection{
         restrictedContributionsCount
@@ -57,10 +54,16 @@ def commits_by_language():
         lang = (entry["repository"]["primaryLanguage"] or {}).get("name") or "Other"
         total[lang] += entry["contributions"]["totalCount"]
     restricted = c["restrictedContributionsCount"]
-    if restricted:
-        share = sum(PRIVATE_LANGUAGES.values()) or 1
-        for lang, weight in PRIVATE_LANGUAGES.items():
-            total[lang] += round(restricted * weight / share)
+    measured = sum(total.values())
+    if restricted and measured:
+        # Largest remainder, so the parts add up to exactly `restricted`.
+        exact = {lang: restricted * n / measured for lang, n in total.items()}
+        part = {lang: int(v) for lang, v in exact.items()}
+        for lang in sorted(exact, key=lambda k: exact[k] - part[k], reverse=True)[
+                :restricted - sum(part.values())]:
+            part[lang] += 1
+        for lang, n in part.items():
+            total[lang] += n
     return total
 
 

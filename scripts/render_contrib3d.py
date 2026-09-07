@@ -47,10 +47,24 @@ def shade(hex_color, factor):
     return "#%02x%02x%02x" % tuple(max(0, min(255, round(c * factor))) for c in (r, g, b))
 
 
-def level(count, max_count):
+def scale_for(counts):
+    """The 95th percentile of active days, used instead of the raw maximum.
+
+    A single busy day (one merge spree, one import) is enough to push every
+    ordinary day below the first quartile, which renders the whole field in
+    the darkest shade at minimum height. Capping the scale keeps the four
+    colour steps spread across the days that actually vary.
+    """
+    active = sorted(c for c in counts if c > 0)
+    if not active:
+        return 1
+    return active[min(int(len(active) * 0.95), len(active) - 1)] or 1
+
+
+def level(count, scale):
     if count <= 0:
         return -1
-    q = count / max_count
+    q = min(count / scale, 1.0)
     return 0 if q <= 0.25 else 1 if q <= 0.5 else 2 if q <= 0.75 else 3
 
 
@@ -81,7 +95,7 @@ def render(total, weeks, theme, path):
     t = THEMES[theme]
     counts = [(wi, day["weekday"], day["contributionCount"], day["date"])
               for wi, week in enumerate(weeks) for day in week["contributionDays"]]
-    max_count = max((c for _, _, c, _ in counts), default=1) or 1
+    scale = scale_for([c for _, _, c, _ in counts])
     n_weeks = len(weeks)
 
     xs, ys = zip(*(iso(w, d) for w in (0, n_weeks) for d in (0, 7)))
@@ -93,9 +107,9 @@ def render(total, weeks, theme, path):
 
     boxes = []
     for w, d, c, _ in sorted(counts, key=lambda k: k[0] + k[1]):
-        lv = level(c, max_count)
+        lv = level(c, scale)
         color = t["zero"] if lv < 0 else t["levels"][lv]
-        h = 1.5 if lv < 0 else 6 + (MAX_HEIGHT - 6) * (c / max_count)
+        h = 1.5 if lv < 0 else 6 + (MAX_HEIGHT - 6) * min(c / scale, 1.0)
         boxes.append(cuboid(w, d, h, color))
 
     first = counts[0][3] if counts else ""

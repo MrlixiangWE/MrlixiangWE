@@ -20,6 +20,8 @@ LANG_COLORS = {
     "Java": "#b07219", "Jupyter Notebook": "#DA5B0B", "Go": "#00ADD8", "Rust": "#dea584",
     "TypeScript": "#3178c6", "JavaScript": "#f1e05a", "HTML": "#e34c26", "Dockerfile": "#384d54",
     "Makefile": "#427819", "Triton": "#6f42c1",
+    # Not a language: the bucket for work GitHub reports without a repository.
+    "Private repositories": "#6e7681",
 }
 
 
@@ -33,16 +35,31 @@ def fetch(url, data=None):
         return json.load(resp)
 
 
+PRIVATE_LABEL = "Private repositories"
+
+
 def commits_by_language():
-    """Commits in the last 12 months, grouped by the primary language of the repository they went to."""
+    """Commits in the last 12 months, grouped by the primary language of the repository they went to.
+
+    commitContributionsByRepository covers public repositories only: private
+    work is reported solely as restrictedContributionsCount, with no repository
+    or language attached, and GitHub will not disclose more than that. Rather
+    than quietly dropping it — which left this card summing to 59 beside an
+    activity card reading 808 — carry it as its own bucket so both cards agree
+    on the total and the undisclosed part is visible for what it is.
+    """
     query = """query($login:String!){ user(login:$login){ contributionsCollection{
+        restrictedContributionsCount
         commitContributionsByRepository(maxRepositories:100){
           repository{ nameWithOwner primaryLanguage{ name } } contributions{ totalCount } } } } }"""
-    d = fetch(f"{API}/graphql", {"query": query, "variables": {"login": USER}})
+    c = fetch(f"{API}/graphql", {"query": query, "variables": {"login": USER}}
+              )["data"]["user"]["contributionsCollection"]
     total = Counter()
-    for entry in d["data"]["user"]["contributionsCollection"]["commitContributionsByRepository"]:
+    for entry in c["commitContributionsByRepository"]:
         lang = (entry["repository"]["primaryLanguage"] or {}).get("name") or "Other"
         total[lang] += entry["contributions"]["totalCount"]
+    if c["restrictedContributionsCount"]:
+        total[PRIVATE_LABEL] = c["restrictedContributionsCount"]
     return total
 
 
@@ -188,7 +205,7 @@ def languages_card(counts, path):
 
 def activity_card(merged, open_, nrepos, contrib, path):
     rows = [("Upstream pull requests merged", merged), ("Upstream pull requests open", open_),
-            ("Projects contributed to", nrepos)]
+            ("Upstream projects contributed to", nrepos)]
     if contrib:
         rows += [("Contributions, last 12 months", contrib["year"]),
                  ("Commits, last 12 months", contrib["commits"] + contrib["private"]),

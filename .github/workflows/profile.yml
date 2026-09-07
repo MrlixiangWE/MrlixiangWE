@@ -15,13 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Render the contribution field, cards and the upstream PR table
+      - name: Render the contribution field and cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 scripts/render_contrib3d.py
           python3 scripts/render_cards.py
-          python3 scripts/update_prs.py
       - name: Commit
         run: |
           git config user.name "${{ github.repository_owner }}"

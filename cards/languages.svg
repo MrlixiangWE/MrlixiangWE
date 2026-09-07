@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="420" height="164" viewBox="0 0 420 164" font-family="Segoe UI,Helvetica,Arial,sans-serif">
 <style>text{fill:#8b949e} .t{fill:#c9d1d9;font-weight:600;font-size:16px} .l{font-size:12px}@media (prefers-color-scheme: light){text{fill:#57606a} .t{fill:#24292f}}</style>
 <text x="20" y="30" class="t">Commits by language, last 12 months</text>
-<rect x="20" y="42" width="328" height="8" rx="2" fill="#3572A5"/>
-<rect x="348" y="42" width="35" height="8" rx="2" fill="#89e051"/>
-<rect x="383" y="42" width="12" height="8" rx="2" fill="#DA5B0B"/>
-<rect x="395" y="42" width="6" height="8" rx="2" fill="#b07219"/>
+<rect x="20" y="42" width="330" height="8" rx="2" fill="#3572A5"/>
+<rect x="350" y="42" width="33" height="8" rx="2" fill="#89e051"/>
+<rect x="383" y="42" width="11" height="8" rx="2" fill="#DA5B0B"/>
+<rect x="394" y="42" width="6" height="8" rx="2" fill="#b07219"/>
 <circle cx="26" cy="70" r="5" fill="#3572A5"/>
 <text x="38" y="74" class="l">Python</text>
-<text x="400" y="74" class="l" text-anchor="end">704 commits, 86.4%</text>
+<text x="400" y="74" class="l" text-anchor="end">709 commits, 86.8%</text>
 <circle cx="26" cy="96" r="5" fill="#89e051"/>
 <text x="38" y="100" class="l">Shell</text>
-<text x="400" y="100" class="l" text-anchor="end">74 commits, 9.1%</text>
+<text x="400" y="100" class="l" text-anchor="end">72 commits, 8.8%</text>
 <circle cx="26" cy="122" r="5" fill="#DA5B0B"/>
 <text x="38" y="126" class="l">Jupyter Notebook</text>
-<text x="400" y="126" class="l" text-anchor="end">25 commits, 3.1%</text>
+<text x="400" y="126" class="l" text-anchor="end">24 commits, 2.9%</text>
 <circle cx="26" cy="148" r="5" fill="#b07219"/>
 <text x="38" y="152" class="l">Java</text>
 <text x="400" y="152" class="l" text-anchor="end">12 commits, 1.5%</text>

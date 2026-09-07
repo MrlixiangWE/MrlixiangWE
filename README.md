@@ -15,14 +15,33 @@
 ## Contribution graph
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="profile-3d-contrib/profile-night-rainbow.svg">
-  <source media="(prefers-color-scheme: light)" srcset="profile-3d-contrib/profile-green-animate.svg">
-  <img src="profile-3d-contrib/profile-green-animate.svg" alt="3D contribution calendar" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="profile-3d-contrib/dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="profile-3d-contrib/light.svg">
+  <img src="profile-3d-contrib/light.svg" alt="3D contribution calendar" width="100%">
 </picture>
 
 ## Upstream work
 
 <!-- PRS:START -->
+8 merged, 6 open, across `apache/bifromq`, `apache/otava`, `areal-project/AReaL`, `pytorch/helion`, `vllm-project/vllm-ascend`, `vllm-project/vllm-omni`
+
+| Repository | Pull request | Status |
+|---|---|---|
+| vllm-project/vllm-omni | [#7094](https://github.com/vllm-project/vllm-omni/pull/7094) [Perf][Diffusion] Run MammothModa2 DiT attention through the shared attention layer | open |
+| apache/otava | [#179](https://github.com/apache/otava/pull/179) Define the public API in otava/__init__.py | open |
+| areal-project/AReaL | [#1676](https://github.com/areal-project/AReaL/pull/1676) perf(engine): encode each distinct image once per vision-tower forward | open |
+| vllm-project/vllm-omni | [#6516](https://github.com/vllm-project/vllm-omni/pull/6516) [Model] Support SenseNova-U1.5-8B-MoT and its distilled 8-step LoRA | merged |
+| pytorch/helion | [#3450](https://github.com/pytorch/helion/pull/3450) [compiler] Allow torch.matmul rank broadcasting; add sparse-attention indexer example | merged |
+| vllm-project/vllm-omni | [#6317](https://github.com/vllm-project/vllm-omni/pull/6317) [Perf][Bugfix][OmniVoice] Restore float16 serving, and fuse the generator hot loop | merged |
+| vllm-project/vllm-omni | [#6286](https://github.com/vllm-project/vllm-omni/pull/6286) [Model] Serve OpenVLA-7B as an autoregressive robot policy | open |
+| apache/otava | [#169](https://github.com/apache/otava/pull/169) Make AnalyzedSeries change points lazy properties | merged |
+| vllm-project/vllm-omni | [#6172](https://github.com/vllm-project/vllm-omni/pull/6172) [Bugfix] Stop reading the removed OmniRequestOutput.request_output accessor | merged |
+| vllm-project/vllm-omni | [#6152](https://github.com/vllm-project/vllm-omni/pull/6152) [Bugfix] Carry ec_transfer_params and num_cache_creation_tokens on OmniRequestOutput | merged |
+| vllm-project/vllm-omni | [#6111](https://github.com/vllm-project/vllm-omni/pull/6111) [Bugfix] Route text-only chat as per-request comprehension in HunyuanImage3 AR sampler | open |
+| vllm-project/vllm-ascend | [#14110](https://github.com/vllm-project/vllm-ascend/pull/14110) [BugFix] Fix KeyError when remote_cached_tokens is missing in SFA PD RD2H producer | open |
+| apache/bifromq | [#273](https://github.com/apache/bifromq/pull/273) Avoid reusing released APIServer response buffers | merged |
+| apache/otava | [#166](https://github.com/apache/otava/pull/166) Make CSV importer configurable via ConfigArgParse | merged |
+
 <!-- PRS:END -->
 
 ## Stack
@@ -43,16 +62,10 @@
 ## Activity
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=MrlixiangWE&layout=compact&langs_count=8&hide_border=true&theme=transparent" alt="Languages" height="165">
-  <img src="https://github-readme-stats.vercel.app/api?username=MrlixiangWE&show_icons=true&include_all_commits=true&count_private=true&hide_border=true&theme=transparent" alt="Stats" height="165">
+  <img src="cards/languages.svg" alt="Languages" height="270">
+  <img src="cards/activity.svg" alt="Activity" height="270">
 </p>
 
 <p align="center">
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=MrlixiangWE&hide_border=true&theme=transparent" alt="Streak" height="165">
 </p>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/output/github-snake-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/output/github-snake.svg">
-  <img src="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/output/github-snake.svg" alt="contribution snake" width="100%">
-</picture>

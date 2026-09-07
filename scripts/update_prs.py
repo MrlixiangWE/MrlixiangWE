@@ -45,7 +45,7 @@ def main():
         lines.append(f"| {repo} | [#{num}]({url}) {title} | {state} |")
 
     text = open(README, encoding="utf-8").read()
-    new = f"{START}\n" + "\n".join(lines) + f"\n{END}"
+    new = f"{START}\n" + "\n".join(lines) + f"\n\n{END}"
     text = re.sub(re.escape(START) + r".*?" + re.escape(END), new, text, flags=re.S)
     open(README, "w", encoding="utf-8").write(text)
 

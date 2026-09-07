@@ -29,5 +29,5 @@
 </p>
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=MrlixiangWE&hide_border=true&theme=transparent" alt="Streak" height="165">
+  <img src="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/main/cards/streak.svg" alt="Streak" height="130">
 </p>

@@ -68,13 +68,19 @@ def contributions():
         return None
     query = """query($login:String!){ user(login:$login){
         contributionsCollection{ contributionCalendar{ totalContributions }
-          totalCommitContributions totalPullRequestReviewContributions }
+          totalCommitContributions totalPullRequestReviewContributions
+          restrictedContributionsCount }
         followers{ totalCount } } }"""
     d = fetch(f"{API}/graphql", {"query": query, "variables": {"login": USER}})["data"]["user"]
     c = d["contributionsCollection"]
+    # totalCommitContributions counts public repositories only; work in private
+    # repositories is reported separately as restrictedContributionsCount and is
+    # already part of contributionCalendar.totalContributions. Adding it back is
+    # what makes the two rows of the activity card agree with each other.
     return {
         "year": c["contributionCalendar"]["totalContributions"],
         "commits": c["totalCommitContributions"],
+        "private": c["restrictedContributionsCount"],
         "reviews": c["totalPullRequestReviewContributions"],
         "followers": d["followers"]["totalCount"],
     }
@@ -112,7 +118,9 @@ def activity_card(merged, open_, nrepos, contrib, path):
     rows = [("Upstream pull requests merged", merged), ("Upstream pull requests open", open_),
             ("Projects contributed to", nrepos)]
     if contrib:
-        rows += [("Contributions, last 12 months", contrib["year"]), ("Commits, last 12 months", contrib["commits"])]
+        rows += [("Contributions, last 12 months", contrib["year"]),
+                 ("Commits, last 12 months", contrib["commits"] + contrib["private"]),
+                 ("  of which in private repositories", contrib["private"])]
     w, h, pad = 420, 60 + 26 * len(rows), 20
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" font-family="Segoe UI,Helvetica,Arial,sans-serif">',
            '<style>text{fill:#8b949e} .t{fill:#c9d1d9;font-weight:600;font-size:16px} .l{font-size:12px} .v{fill:#58a6ff;font-weight:700;font-size:13px}'

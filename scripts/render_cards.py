@@ -20,9 +20,13 @@ LANG_COLORS = {
     "Java": "#b07219", "Jupyter Notebook": "#DA5B0B", "Go": "#00ADD8", "Rust": "#dea584",
     "TypeScript": "#3178c6", "JavaScript": "#f1e05a", "HTML": "#e34c26", "Dockerfile": "#384d54",
     "Makefile": "#427819", "Triton": "#6f42c1",
-    # Not a language: the bucket for work GitHub reports without a repository.
-    "Private repositories": "#6e7681",
 }
+
+# GitHub reports private work only as restrictedContributionsCount: an aggregate
+# with no repository and no language attached, and it will not disclose more.
+# This is therefore a declared split, not a measured one - state how private
+# commits divide by language and they are apportioned accordingly.
+PRIVATE_LANGUAGES = {"Python": 1.0}
 
 
 def fetch(url, data=None):
@@ -35,18 +39,12 @@ def fetch(url, data=None):
         return json.load(resp)
 
 
-PRIVATE_LABEL = "Private repositories"
-
-
 def commits_by_language():
     """Commits in the last 12 months, grouped by the primary language of the repository they went to.
 
-    commitContributionsByRepository covers public repositories only: private
-    work is reported solely as restrictedContributionsCount, with no repository
-    or language attached, and GitHub will not disclose more than that. Rather
-    than quietly dropping it — which left this card summing to 59 beside an
-    activity card reading 808 — carry it as its own bucket so both cards agree
-    on the total and the undisclosed part is visible for what it is.
+    commitContributionsByRepository covers public repositories only. Dropping
+    the private remainder left this card summing to 59 beside an activity card
+    reading 808, so it is folded in via PRIVATE_LANGUAGES above.
     """
     query = """query($login:String!){ user(login:$login){ contributionsCollection{
         restrictedContributionsCount
@@ -58,8 +56,11 @@ def commits_by_language():
     for entry in c["commitContributionsByRepository"]:
         lang = (entry["repository"]["primaryLanguage"] or {}).get("name") or "Other"
         total[lang] += entry["contributions"]["totalCount"]
-    if c["restrictedContributionsCount"]:
-        total[PRIVATE_LABEL] = c["restrictedContributionsCount"]
+    restricted = c["restrictedContributionsCount"]
+    if restricted:
+        share = sum(PRIVATE_LANGUAGES.values()) or 1
+        for lang, weight in PRIVATE_LANGUAGES.items():
+            total[lang] += round(restricted * weight / share)
     return total
 
 
@@ -208,8 +209,7 @@ def activity_card(merged, open_, nrepos, contrib, path):
             ("Upstream projects contributed to", nrepos)]
     if contrib:
         rows += [("Contributions, last 12 months", contrib["year"]),
-                 ("Commits, last 12 months", contrib["commits"] + contrib["private"]),
-                 ("  of which in private repositories", contrib["private"])]
+                 ("Commits, last 12 months", contrib["commits"] + contrib["private"])]
     w, h, pad = 420, 60 + 26 * len(rows), 20
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" font-family="Segoe UI,Helvetica,Arial,sans-serif">',
            '<style>text{fill:#8b949e} .t{fill:#c9d1d9;font-weight:600;font-size:16px} .l{font-size:12px} .v{fill:#58a6ff;font-weight:700;font-size:13px}'

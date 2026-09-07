@@ -15,9 +15,9 @@
 ## Contribution graph
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="profile-3d-contrib/dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="profile-3d-contrib/light.svg">
-  <img src="profile-3d-contrib/light.svg" alt="3D contribution calendar" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/main/profile-3d-contrib/dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/main/profile-3d-contrib/light.svg">
+  <img src="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/main/profile-3d-contrib/light.svg" alt="3D contribution calendar" width="100%">
 </picture>
 
 ## Upstream work
@@ -62,8 +62,8 @@
 ## Activity
 
 <p align="center">
-  <img src="cards/languages.svg" alt="Languages" height="270">
-  <img src="cards/activity.svg" alt="Activity" height="270">
+  <img src="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/main/cards/languages.svg" alt="Languages" height="270">
+  <img src="https://raw.githubusercontent.com/MrlixiangWE/MrlixiangWE/main/cards/activity.svg" alt="Activity" height="270">
 </p>
 
 <p align="center">

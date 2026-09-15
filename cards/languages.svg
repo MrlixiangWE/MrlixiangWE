@@ -7,7 +7,7 @@
 <rect x="395" y="42" width="5" height="8" rx="2" fill="#b07219"/>
 <circle cx="26" cy="70" r="5" fill="#3572A5"/>
 <text x="38" y="74" class="l">Python</text>
-<text x="400" y="74" class="l" text-anchor="end">719 commits, 88.3%</text>
+<text x="400" y="74" class="l" text-anchor="end">721 commits, 88.5%</text>
 <circle cx="26" cy="96" r="5" fill="#89e051"/>
 <text x="38" y="100" class="l">Shell</text>
 <text x="400" y="100" class="l" text-anchor="end">63 commits, 7.7%</text>
@@ -16,5 +16,5 @@
 <text x="400" y="126" class="l" text-anchor="end">21 commits, 2.6%</text>
 <circle cx="26" cy="148" r="5" fill="#b07219"/>
 <text x="38" y="152" class="l">Java</text>
-<text x="400" y="152" class="l" text-anchor="end">11 commits, 1.4%</text>
+<text x="400" y="152" class="l" text-anchor="end">10 commits, 1.2%</text>
 </svg>

@@ -2,15 +2,15 @@
 <style>text{fill:#8b949e} .t{fill:#c9d1d9;font-weight:600;font-size:16px} .l{font-size:12px}@media (prefers-color-scheme: light){text{fill:#57606a} .t{fill:#24292f}}</style>
 <text x="20" y="30" class="t">Commits by language, last 12 months</text>
 <rect x="20" y="42" width="340" height="8" rx="2" fill="#3572A5"/>
-<rect x="360" y="42" width="27" height="8" rx="2" fill="#89e051"/>
-<rect x="387" y="42" width="9" height="8" rx="2" fill="#DA5B0B"/>
-<rect x="396" y="42" width="5" height="8" rx="2" fill="#b07219"/>
+<rect x="360" y="42" width="26" height="8" rx="2" fill="#89e051"/>
+<rect x="386" y="42" width="9" height="8" rx="2" fill="#DA5B0B"/>
+<rect x="395" y="42" width="5" height="8" rx="2" fill="#b07219"/>
 <circle cx="26" cy="70" r="5" fill="#3572A5"/>
 <text x="38" y="74" class="l">Python</text>
-<text x="400" y="74" class="l" text-anchor="end">731 commits, 89.4%</text>
+<text x="400" y="74" class="l" text-anchor="end">733 commits, 89.5%</text>
 <circle cx="26" cy="96" r="5" fill="#89e051"/>
 <text x="38" y="100" class="l">Shell</text>
-<text x="400" y="100" class="l" text-anchor="end">58 commits, 7.1%</text>
+<text x="400" y="100" class="l" text-anchor="end">57 commits, 7.0%</text>
 <circle cx="26" cy="122" r="5" fill="#DA5B0B"/>
 <text x="38" y="126" class="l">Jupyter Notebook</text>
 <text x="400" y="126" class="l" text-anchor="end">19 commits, 2.3%</text>
